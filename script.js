@@ -45,3 +45,23 @@ function ascenderLuz() {
 }
 
 luz.addEventListener('change', ascenderLuz);
+
+const botao = document.getElementById('criar-carta');
+const texto = document.getElementById('carta-texto');
+const carta = document.getElementById('carta-gerada');
+
+function escreveCarta() {
+  const palavras = texto.value.split(' ');
+
+  carta.textContent = '';
+
+  for (let i = 0; i < palavras.length; i += 1) {
+    const span = document.createElement('span');
+
+    span.textContent = `${palavras[i]}`;
+
+    carta.appendChild(span);
+  }
+}
+
+botao.addEventListener('click', escreveCarta);
