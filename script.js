@@ -16,6 +16,10 @@ const botao = document.getElementById('criar-carta');
 const texto = document.getElementById('carta-texto');
 const carta = document.getElementById('carta-gerada');
 
+const classes1 = ['newspaper', 'magazine1', 'magazine2'];
+const classes2 = ['medium', 'big', 'reallybig'];
+const classes3 = ['rotateleft', 'rotateright', 'skewleft', 'skewright'];
+
 function ascende() {
   corpo.style.backgroundColor = white;
   cabecalho.style.backgroundColor = goldenRod;
@@ -61,6 +65,9 @@ function escreveCarta() {
     const span = document.createElement('span');
 
     span.textContent = `${palavras[i]}`;
+    span.className = `${classes1[Math.floor(Math.random() * 3)]} 
+      ${classes2[Math.floor(Math.random() * 3)]} 
+      ${classes3[Math.floor(Math.random() * 4)]}`;
 
     carta.appendChild(span);
   }
