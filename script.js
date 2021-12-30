@@ -12,6 +12,10 @@ const bloodRed = 'rgba(107, 5, 4, 1)';
 const chineseRed = 'rgba(163, 50, 11, 1)';
 const goldenRod = 'rgba(230, 175, 46, 1)';
 
+const botao = document.getElementById('criar-carta');
+const texto = document.getElementById('carta-texto');
+const carta = document.getElementById('carta-gerada');
+
 function ascende() {
   corpo.style.backgroundColor = white;
   cabecalho.style.backgroundColor = goldenRod;
@@ -22,6 +26,7 @@ function ascende() {
   titulo.style.textShadow = `2px 2px 2px ${bloodRed}`;
   rodaPe.style.textShadow = `2px 2px 2px ${bloodRed}`;
   luzes.style.color = 'black';
+  carta.style.color = 'black';
 }
 
 function apaga() {
@@ -34,6 +39,7 @@ function apaga() {
   titulo.style.textShadow = `2px 2px 2px ${white}`;
   rodaPe.style.textShadow = `2px 2px 2px ${goldenRod}`;
   luzes.style.color = white;
+  carta.style.color = white;
 }
 
 function ascenderLuz() {
@@ -45,10 +51,6 @@ function ascenderLuz() {
 }
 
 luz.addEventListener('change', ascenderLuz);
-
-const botao = document.getElementById('criar-carta');
-const texto = document.getElementById('carta-texto');
-const carta = document.getElementById('carta-gerada');
 
 function escreveCarta() {
   const palavras = texto.value.split(' ');
@@ -64,4 +66,12 @@ function escreveCarta() {
   }
 }
 
-botao.addEventListener('click', escreveCarta);
+function verificaTexto() {
+  if (!texto.value.trim()) {
+    carta.textContent = 'Por favor, digite o conteúdo da carta.';
+  } else {
+    escreveCarta();
+  }
+}
+
+botao.addEventListener('click', verificaTexto);

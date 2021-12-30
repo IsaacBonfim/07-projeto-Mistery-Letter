@@ -42,6 +42,10 @@ main {
   width: 400px;
 }
 
+#carta-gerada {
+  color: white;
+}
+
 #light {
   position: absolute;
   bottom: 60px;
