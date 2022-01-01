@@ -15,10 +15,15 @@ const goldenRod = 'rgba(230, 175, 46, 1)';
 const botao = document.getElementById('criar-carta');
 const texto = document.getElementById('carta-texto');
 const carta = document.getElementById('carta-gerada');
+const label = document.getElementById('label-contador');
+const total = document.getElementById('carta-contador');
 
-const classes1 = ['newspaper', 'magazine1', 'magazine2'];
-const classes2 = ['medium', 'big', 'reallybig'];
-const classes3 = ['rotateleft', 'rotateright', 'skewleft', 'skewright'];
+const estilo = ['newspaper', 'magazine1', 'magazine2'];
+const tamanho = ['medium', 'big', 'reallybig'];
+const rotacao = ['rotateleft', 'rotateright'];
+const inclinacao = ['skewleft', 'skewright'];
+
+const classes = [estilo, tamanho, rotacao, inclinacao];
 
 function ascende() {
   corpo.style.backgroundColor = white;
@@ -31,6 +36,8 @@ function ascende() {
   rodaPe.style.textShadow = `2px 2px 2px ${bloodRed}`;
   luzes.style.color = 'black';
   carta.style.color = 'black';
+  label.style.color = 'black';
+  total.style.color = 'black';
 }
 
 function apaga() {
@@ -44,6 +51,8 @@ function apaga() {
   rodaPe.style.textShadow = `2px 2px 2px ${goldenRod}`;
   luzes.style.color = white;
   carta.style.color = white;
+  label.style.color = white;
+  total.style.color = white;
 }
 
 function ascenderLuz() {
@@ -56,6 +65,46 @@ function ascenderLuz() {
 
 luz.addEventListener('change', ascenderLuz);
 
+function escolheGrupos() {
+  const grupos = [classes[Math.floor(Math.random() * 4)], classes[Math.floor(Math.random() * 4)]];
+
+  for (grupos[1]; grupos[1] === grupos[0];) {
+    if (grupos[0] === grupos[1]) {
+      grupos[1] = classes[Math.floor(Math.random() * 4)];
+    }
+  }
+
+  return grupos;
+}
+
+function escolheClasses() {
+  const grupos = escolheGrupos();
+
+  const classe = [grupos[0][Math.floor(Math.random() * 3)],
+    grupos[1][Math.floor(Math.random() * 3)]];
+
+  for (let i = 0; i < classe.length; i += 1) {
+    if (classe[i] === undefined) {
+      classe[i] = grupos[i][Math.floor(Math.random() * 2)];
+    }
+  }
+
+  return classe;
+}
+
+function atribuiClasse() {
+  const classe = escolheClasses();
+  const atribuir = `${classe[0]} ${classe[1]}`;
+
+  return atribuir;
+}
+
+function trocaClasse(evento) {
+  const palavra = evento.target;
+
+  palavra.className = atribuiClasse();
+}
+
 function escreveCarta() {
   const palavras = texto.value.split(' ');
 
@@ -65,12 +114,14 @@ function escreveCarta() {
     const span = document.createElement('span');
 
     span.textContent = `${palavras[i]}`;
-    span.className = `${classes1[Math.floor(Math.random() * 3)]} 
-      ${classes2[Math.floor(Math.random() * 3)]} 
-      ${classes3[Math.floor(Math.random() * 4)]}`;
+    span.className = atribuiClasse();
+    span.addEventListener('click', trocaClasse);
 
     carta.appendChild(span);
   }
+
+  label.textContent = 'O total de palavras é: ';
+  total.textContent = palavras.length;
 }
 
 function verificaTexto() {
